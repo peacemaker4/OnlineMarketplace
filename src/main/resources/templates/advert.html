@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/navbar}"
+>
+<div layout:fragment="main_section">
+
+    <div class="container-fluid" >
+        <div class="card text-center">
+            <div class="card-header">
+                Обьявление
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${advert.title}"></h5>
+                <p class="card-text" th:text="${advert.description}"></p>
+                <div th:if="${basket==null}">
+                    <form th:if="${advert.user_id != user.id}" th:action="@{/adverts/buy/{id}(id=${advert.id}) }" method="post">
+                        <button class="btn btn-outline-warning">Buy</button>
+                    </form>
+                    <form th:if="${advert.user_id==user.id}" th:action="@{/adverts/delete/{id}(id=${advert.id}) }" method="post">
+                        <button class="btn btn-danger">Remove My Advert</button>
+                        <!--                    <a class="btn btn-danger" th:href="@{adverts/{id}/delete(id=${advert.id}) }" >Remove My Advert</a>-->
+                    </form>
+                </div>
+                <div th:if="${basket!=null}" class="alert alert-dark" role="alert">
+                    Уже куплено
+                </div>
+            </div>
+            <div class="card-footer text-muted" th:text="${advert.price.toString()+ ' тг.'}">
+            </div>
+        </div>
+    </div>
+
+</div>

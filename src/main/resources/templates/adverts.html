@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/navbar}"
+>
+<div layout:fragment="main_section">
+
+    <nav aria-label="Page navigation example" >
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" th:href="@{'/adverts?pageNO='+${pageNO - 1}}" th:if="${pageNO>0}">Previous</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{'/adverts?pageNO='+${pageNO + 1}}" >Next</a></li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid" th:each="ad : ${adverts}">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${ad.title}"></h5>
+                <p class="card-text" th:text="${ad.price}" тг.></p>
+                <a th:href="@{adverts/{id}(id=${ad.id}) }" class="btn btn-outline-primary">More...</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
